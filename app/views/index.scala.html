@@ -1,4 +1,4 @@
-@()
+@(usuario: Usuario, cupons: List[Cupom], loja: String)
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,6 +39,9 @@
             padding: 0;
             margin-left: 0px;;
         }
+        .head{
+            text-align: center;
+        }
     </style>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -61,7 +64,7 @@
             <h2>Aqui você encontra cupons de desconto da sua loja favorita!</h2>
             <hr>
             <div class="dark">
-                <form>
+                <form action="" method="get">
                         <span><input type="text" class="search rounded" placeholder="
                         Busque pelo nome da Loja. Ex: Netshoes, Dafiti,...">
                              <input type="submit" class="btn btn-warning btn-lg pesq" value="Buscar">
@@ -199,79 +202,89 @@
     <div class="content-box listaCupons">
         <!-- Aqui temos uma lista de cupons verificar itens a usar -->
         <div class="box-holder">
-            <div class="head"><h2>Olá Fulano, Confira os melhores cupons "gerais" para Abril de 2015:</h2></div>
-            <div class="post-3938 coupon type-coupon status-publish hentry item coupon_type-coupon-code"
-                 id="post-3938">
-                <div class="store-holder cuponsCategoria">
-                    <div class="store-image"><a href="#"><img
-                            alt="Cupom de Desconto Descomplica" title="Veja mais cupons de desconto Descomplica"
+            <div class="head">
+                @if(usuario!=null){
+                    <h2>Confira os melhores cupons para Abril de 2015:</h2>
+                }else{
+                    <h2>Olá @usuario.getNome, Confira os melhores cupons @loja para Abril de 2015:</h2>
+                }
+            </div>
+            @for(cupom <- cupons){
+                @if(cupom.getTipo==0){
+                    <div class="post-@cupom.getId coupon type-coupon status-publish hentry item coupon_type-coupon-code"
+                    id="post-@cupom.getId">
+                        <div class="store-holder cuponsCategoria">
+                            <div class="store-image"><a href="@cupom.getUrl_loja"><img
+                            alt="Cupom de Desconto @cupom.getLoja" title="Veja mais cupons de desconto @cupom.getLoja"
                             width="125px" height="43px"
                             src="http://cdn.cuponomize.com/wp-content/uploads/2015/01/cupom-desconto-descomplica.jpg"></a>
-                    </div>
-                </div>
-                <div class="item-holder listWithImage cuponsCategoria">
-                    <div class="item-panel"><strong class="tipo"><span>Cupom de Desconto </span><span
+                            </div>
+                        </div>
+                        <div class="item-holder listWithImage cuponsCategoria">
+                            <div class="item-panel"><strong class="tipo"><span>Cupom de Desconto </span><span
                             class="verificacao">Testado</span></strong>
 
-                        <h3><a class="linkConversao" rel="nofollow" data-link-type="titulo"
-                               data-coupon-type="codigo" data-store-commission="true"
-                               data-url-redirect="#"
-                               data-cupom-status="publicado" data-store-id="395" data-store-name="Descomplica"
-                               data-store-slug="descomplica" target="_blank"
-                               href="#">60% OFF na
-                            Assinatura Semestral</a></h3><span class="maisCupons"><a
+                                <h3><a class="linkConversao" rel="nofollow" data-link-type="titulo"
+                                data-coupon-type="codigo" data-store-commission="true"
+                                data-url-redirect="@cupom.getUrl_loja"
+                                data-cupom-status="publicado" data-store-id="395" data-store-name="@cupom.getLoja"
+                                data-store-slug="@cupom.getLoja" target="_blank"
+                                href="#">@cupom.getTexto</a></h3><span class="maisCupons"><a
                                 href="#">Veja mais cupons de
-                            Descomplica</a> »</span></div>
-                    <div class="mostra-cupom"><a rel="nofollow"
-                                                 title="Clique aqui para ver o código do seu cupom Descomplica"
-                                                 class="linkConversao botao-codigo" data-link-type="botao"
-                                                 data-coupon-type="cupom" data-store-commission="true"
-                                                 data-url-redirect="#"
-                                                 data-cupom-status="publicado" data-store-id="395"
-                                                 data-store-name="Descomplica" data-store-slug="descomplica"
-                                                 href="#">
-                        <div class="codigo voupassar"> voupassar</div>
-                        <div class="codigo-texto" data-toggle="modal" data-target="#myModal"> Ver Cupom<span
+                                    @cupom.getLoja</a> »</span></div>
+                            <div class="mostra-cupom"><a rel="nofollow"
+                            title="Clique aqui para ver o código do seu cupom @cupom.getLoja"
+                            class="linkConversao botao-codigo" data-link-type="botao"
+                            data-coupon-type="cupom" data-store-commission="true"
+                            data-url-redirect="#"
+                            data-cupom-status="publicado" data-store-id="395"
+                            data-store-name="@cupom.getLoja" data-store-slug="@cupom.getLoja"
+                            href="#">
+                                <div class="codigo voupassar">@cupom.getTag</div>
+                                <div class="codigo-texto" data-toggle="modal" data-target="#myModal"> Ver Cupom<span
                                 class="peelie"></span></div>
-                    </a></div>
-                    <div class="clear"></div>
-                </div>
-            </div>
-            <div class="post-4024 coupon type-coupon status-publish hentry item coupon_type-desconto"
-                 id="post-4024">
-                <div class="store-holder cuponsCategoria">
-                    <div class="store-image"><a href="#"><img
-                            alt="Cupom de Desconto MegaMamute" title="Veja mais cupons de desconto MegaMamute"
+                            </a></div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                }else{
+                    <div class="post-@cupom.getId coupon type-coupon status-publish hentry item coupon_type-desconto"
+                    id="post-@cupom.getId">
+                        <div class="store-holder cuponsCategoria">
+                            <div class="store-image"><a href="@cupom.getUrl_loja"><img
+                            alt="Cupom de Desconto @cupom.getLoja" title="Veja mais cupons de desconto @cupom.getLoja"
                             width="125px" height="43px"
                             src="http://cdn.cuponomize.com/wp-content/uploads/2015/01/cupom-desconto-mega-mamute.jpg"></a>
-                    </div>
-                </div>
-                <div class="item-holder listWithImage cuponsCategoria">
-                    <div class="item-panel"><strong class="tipo"><span>Link de Desconto </span><span
+                            </div>
+                        </div>
+                        <div class="item-holder listWithImage cuponsCategoria">
+                            <div class="item-panel"><strong class="tipo"><span>Link de Desconto </span><span
                             class="verificacao">Testado</span></strong>
 
-                        <h3><a class="linkConversao" rel="nofollow" data-link-type="titulo"
-                               data-coupon-type="desconto" data-store-commission="true"
-                               data-url-redirect="#"
-                               data-cupom-status="publicado" data-store-id="381" data-store-name="MegaMamute"
-                               data-store-slug="megamamute" target="_blank"
-                               href="#">5% de desconto em
-                            todo o site + 10% de desconto no boleto</a></h3><span class="maisCupons"><a
+                                <h3><a class="linkConversao" rel="nofollow" data-link-type="titulo"
+                                data-coupon-type="desconto" data-store-commission="true"
+                                data-url-redirect="#"
+                                data-cupom-status="publicado" data-store-id="381" data-store-name="@cupom.getLoja"
+                                data-store-slug="@cupom.getLoja" target="_blank"
+                                href="#">@cupom.getTexto</a></h3><span class="maisCupons"><a
                                 href="#">Veja mais cupons de
-                            MegaMamute</a> »</span></div>
-                    <div class="mostra-cupom"><a rel="nofollow" class="linkConversao botao-codigo botao-desconto"
-                                                 data-link-type="botao" data-coupon-type="desconto"
-                                                 data-store-commission="true"
-                                                 data-url-redirect="#"
-                                                 data-cupom-status="publicado" data-store-id="381"
-                                                 data-store-name="MegaMamute" data-store-slug="megamamute"
-                                                 target="_blank"
-                                                 href="#">
-                        <div class="codigo-texto"> Ver Desconto</div>
-                    </a></div>
-                    <div class="clear"></div>
-                </div>
-            </div>
+                                    @cupom.getLoja</a> »</span></div>
+                            <div class="mostra-cupom"><a rel="nofollow" class="linkConversao botao-codigo botao-desconto"
+                            data-link-type="botao" data-coupon-type="desconto"
+                            data-store-commission="true"
+                            data-url-redirect="#"
+                            data-cupom-status="publicado" data-store-id="381"
+                            data-store-name="@cupom.getLoja" data-store-slug="@cupom.getLoja"
+                            target="_blank"
+                            href="@cupom.getUrl_loja">
+                                <div class="codigo-texto"> Ver Desconto</div>
+                            </a></div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                }
+            }
+
 
             <!-- Modal unique-->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"

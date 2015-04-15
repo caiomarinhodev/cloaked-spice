@@ -17,14 +17,14 @@ public class CupomTest extends AbstractTest {
     @Test
     public void deveAdicionarUmCupom(){
         Usuario autor = Sistema.getUsuario("u");
-        Cupom c = new Cupom("title", "desc", "tag",0,new Date(), new Date(2015,3,18),autor.getId(), "Americanas",
+        Cupom c = new Cupom("title", "desc", "tag",0,new Date(), new Date(2015,3,18),autor.getId(), Sistema.getLoja("Americanas").getId(),
                 "www");
         Assert.assertTrue(Sistema.addCupom(c));
     }
     @Test
     public void deveRemoverUmCupom(){
         Usuario autor = Sistema.getUsuario("u");
-        Cupom c = new Cupom("title", "desc", "tag",0,new Date(), new Date(2015,3,18),autor.getId(),"Americanas",
+        Cupom c = new Cupom("title", "desc", "tag",0,new Date(), new Date(2015,3,18),autor.getId(),Sistema.getLoja("Americanas").getId(),
                 "www");
         Sistema.addCupom(c);
         Long id = c.getId();
@@ -33,7 +33,7 @@ public class CupomTest extends AbstractTest {
     @Test
     public void deveRecuperarCupomPorId(){
         Usuario autor = Sistema.getUsuario("u");
-        Cupom c = new Cupom("title", "desc", "tag",0,new Date(), new Date(2015,3,18),autor.getId(),"Americanas",
+        Cupom c = new Cupom("title", "desc", "tag",0,new Date(), new Date(2015,3,18),autor.getId(),Sistema.getLoja("Americanas").getId(),
                 "www");
         Sistema.addCupom(c);
         Long id = c.getId();
@@ -42,7 +42,7 @@ public class CupomTest extends AbstractTest {
     @Test
     public void deveRecuperarCupomPorTag(){
         Usuario autor = Sistema.getUsuario("u");
-        Cupom c = new Cupom("title", "desc", "tag",0,new Date(), new Date(2015,3,18),autor.getId(),"Americanas",
+        Cupom c = new Cupom("title", "desc", "tag",0,new Date(), new Date(2015,3,18),autor.getId(),Sistema.getLoja("Americanas").getId(),
                 "www");
         Sistema.addCupom(c);
         String tag = "tag";
@@ -51,10 +51,10 @@ public class CupomTest extends AbstractTest {
     @Test
     public void deveVerificarSeDoisCuponsSaoIguais(){
         Usuario autor = Sistema.getUsuario("u");
-        Cupom c = new Cupom("title", "desc", "tag",0,new Date(), new Date(2015,3,18),autor.getId(),"Americanas",
+        Cupom c = new Cupom("title", "desc", "tag",0,new Date(), new Date(2015,3,18),autor.getId(),Sistema.getLoja("Americanas").getId(),
                 "www");
         Sistema.addCupom(c);
-        Cupom c2 = new Cupom("title", "desc", "tag",0,new Date(), new Date(2015,3,18),autor.getId(),"Americanas",
+        Cupom c2 = new Cupom("title", "desc", "tag",0,new Date(), new Date(2015,3,18),autor.getId(),Sistema.getLoja("Americanas").getId(),
                 "www");
         Sistema.addCupom(c2);
         Assert.assertTrue(c.equals(c2));
@@ -62,11 +62,11 @@ public class CupomTest extends AbstractTest {
     @Test
     public void deveVerificarSeDoisCuponsSaoDiferentes(){
         Usuario autor = Sistema.getUsuario("u");
-        Cupom c = new Cupom("title", "desc", "tag",0,new Date(), new Date(2015,3,18),autor.getId(),"Americanas",
+        Cupom c = new Cupom("title", "desc", "tag",0,new Date(), new Date(2015,3,18),autor.getId(),Sistema.getLoja("Americanas").getId(),
                 "www");
         Sistema.addCupom(c);
         Usuario autor2 = Sistema.getUsuario("u2");
-        Cupom c2 = new Cupom("title", "desc", "huhu",0,new Date(), new Date(2015,3,18),autor2.getId(),"Americanas",
+        Cupom c2 = new Cupom("title", "desc", "huhu",0,new Date(), new Date(2015,3,18),autor2.getId(),Sistema.getLoja("Submarino").getId(),
                 "www");
         Sistema.addCupom(c2);
         Assert.assertFalse(c.equals(c2));
@@ -75,7 +75,7 @@ public class CupomTest extends AbstractTest {
     @Test
     public void deveRetornarTodosOsCupons(){
         Usuario autor = Sistema.getUsuario("u");
-        Cupom c = new Cupom("title", "desc", "tag",0,new Date(), new Date(2015,3,18),autor.getId(),"Americanas",
+        Cupom c = new Cupom("title", "desc", "tag",0,new Date(), new Date(2015,3,18),autor.getId(),Sistema.getLoja("Americanas").getId(),
                 "www");
         Sistema.addCupom(c);
         List<Cupom> l = Sistema.getTodosCupons();
@@ -86,16 +86,16 @@ public class CupomTest extends AbstractTest {
     @Test
     public void deveRetornarApenasOsCuponsDaLoja(){
         Usuario autor = Sistema.getUsuario("u");
-        Cupom c = new Cupom("title", "desc", "tag",0,new Date(), new Date(2015,3,18),autor.getId(),"Americanas",
+        Cupom c = new Cupom("title", "desc", "tag",0,new Date(), new Date(2015,3,18),autor.getId(),Sistema.getLoja("Americanas").getId(),
                 "www");
         Sistema.addCupom(c);
-        Cupom c2 = new Cupom("title", "desc", "tag",0,new Date(), new Date(2015,3,18),autor.getId(),"Mamute",
+        Cupom c2 = new Cupom("title", "desc", "tag",0,new Date(), new Date(2015,3,18),autor.getId(),Sistema.getLoja("Submarino").getId(),
                 "www");
         Sistema.addCupom(c2);
-        Cupom c3 = new Cupom("title2", "desc2", "huag",0,new Date(), new Date(2015,3,18),autor.getId(),"Mamute",
+        Cupom c3 = new Cupom("title2", "desc2", "huag",0,new Date(), new Date(2015,3,18),autor.getId(),Sistema.getLoja("Submarino").getId(),
                 "www");
         Sistema.addCupom(c3);
-        List<Cupom> l = Sistema.getTodosCuponsDaLoja("Mamute");
+        List<Cupom> l = Sistema.getTodosCuponsDaLoja(Sistema.getLoja("Submarino").getId());
         System.out.println("TOTAL Loja: "+l.size());
         Assert.assertEquals(l.size(),2);
     }

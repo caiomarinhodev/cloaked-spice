@@ -2,6 +2,7 @@ package controllers;
 
 import models.Cupom;
 import models.GenericDAO;
+import models.Loja;
 import models.Usuario;
 
 import java.util.List;
@@ -96,10 +97,52 @@ public class Sistema {
         return dao.findAllByClassName(Cupom.class.getName());
     }
 
-    public static List<Cupom> getTodosCuponsDaLoja(String loja){
-        return dao.findByAttributeName(Cupom.class.getName(),"loja",loja);
+    public static List<Cupom> getTodosCuponsDaLoja(Long lojaid){
+        return dao.findByAttributeName(Cupom.class.getName(),"lojaId", String.valueOf(lojaid));
     }
     /*
     Finish tudo relacionado a Cupom
+     */
+
+    /*
+    Aqui fica tudo relacionado a Loja
+     */
+    public static boolean addLoja(Loja l){
+        if(l!=null && l.getNome()!=""){
+            dao.persist(l);
+            dao.flush();
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean removeLoja(Long id){
+        Loja l = dao.findByEntityId(Loja.class,id);
+        if(l!=null){
+            dao.remove(l);
+            dao.flush();
+            return true;
+        }
+        return false;
+    }
+
+    public static Loja getLoja(Long id){
+        List<Loja> l = dao.findByAttributeName(Loja.class.getName(),"id",String.valueOf(id));
+        if(l.size()>0){
+            return l.get(0);
+        }
+        return null;
+    }
+
+    public static Loja getLoja(String nome){
+        List<Loja> l = dao.findByAttributeName(Loja.class.getName(),"nome",nome);
+        if(l.size()>0){
+            return l.get(0);
+        }
+        return null;
+    }
+
+    /*
+    Finish tudo relacionado a Loja
      */
 }

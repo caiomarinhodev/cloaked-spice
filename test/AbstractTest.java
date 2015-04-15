@@ -1,5 +1,6 @@
 
 import controllers.Sistema;
+import models.Loja;
 import models.Usuario;
 import org.junit.After;
 import org.junit.Before;
@@ -11,10 +12,6 @@ import play.test.Helpers;
 import scala.Option;
 
 import javax.persistence.EntityManager;
-import javax.sound.sampled.Port;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by X on 17/03/2015.
@@ -24,7 +21,7 @@ public abstract class AbstractTest {
     public EntityManager em;
 
     @Before
-    public void setUp() throws NoSuchAlgorithmException {
+    public void setUp() {
         FakeApplication app = Helpers.fakeApplication(new GlobalSettings());
         Helpers.start(app);
         Option<JPAPlugin> jpaPlugin = app.getWrappedApplication().plugin(JPAPlugin.class);
@@ -48,5 +45,12 @@ public abstract class AbstractTest {
         Sistema.addUsuario(usuario);
         Sistema.addUsuario(usuario2);
         Sistema.addUsuario(usuario3);
+
+        Loja l1 = new Loja("Americanas", "http://cdn.cuponomize.com/wp-content/uploads/2014/01/desconto-americanas-logo.jpg",
+                "http://www.americanas.com.br/");
+        Loja l2 = new Loja("Submarino","http://cdn.cuponomize.com/wp-content/uploads/2014/01/desconto-submarino-logo.jpg",
+                "http://www.submarino.com.br/");
+        Sistema.addLoja(l1);
+        Sistema.addLoja(l2);
     }
 }

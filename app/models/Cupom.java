@@ -28,7 +28,7 @@ public class Cupom {
     @Column
     private Date dataValidade;
     @Column
-    private String loja;
+    private Long lojaId;
     @Column
     private String url_loja;
     @Column
@@ -39,7 +39,7 @@ public class Cupom {
     }
 
     public Cupom(String texto, String descricao, String tag, int tipo, Date dataCriacao, Date dataValidade, Long autorId,
-                 String loja, String url_loja) {
+                 Long lojaId, String url_loja) {
         this.texto = texto;
         this.descricao = descricao;
         this.tag = tag;
@@ -47,7 +47,7 @@ public class Cupom {
         this.dataCriacao = dataCriacao;
         this.dataValidade = dataValidade;
         this.autorId = autorId;
-        this.loja = loja;
+        this.lojaId = lojaId;
         this.url_loja = url_loja;
     }
 
@@ -115,12 +115,12 @@ public class Cupom {
         this.autorId = autorId;
     }
 
-    public String getLoja() {
-        return loja;
+    public Long getLoja() {
+        return lojaId;
     }
 
-    public void setLoja(String loja) {
-        this.loja = loja;
+    public void setLojaId(Long lojaId) {
+        this.lojaId = lojaId;
     }
 
     public String getUrl_loja() {
@@ -140,7 +140,7 @@ public class Cupom {
 
         if (tipo != cupom.tipo) return false;
         if (autorId != null ? !autorId.equals(cupom.autorId) : cupom.autorId != null) return false;
-        if (loja != null ? !loja.equals(cupom.loja) : cupom.loja != null) return false;
+        if (lojaId != null ? !lojaId.equals(cupom.lojaId) : cupom.lojaId != null) return false;
         if (tag != null ? !tag.equals(cupom.tag) : cupom.tag != null) return false;
 
         return true;
