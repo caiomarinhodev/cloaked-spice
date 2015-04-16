@@ -1,3 +1,4 @@
+/*
 import controllers.Sistema;
 import models.*;
 import org.joda.time.DateTime;
@@ -11,6 +12,7 @@ import java.util.List;
 /**
  * Created by Caio.
  */
+/*
 public class CupomTest extends AbstractTest {
 
 
@@ -101,3 +103,4 @@ public class CupomTest extends AbstractTest {
     }
 
 }
+*/

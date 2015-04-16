@@ -34,7 +34,7 @@
 
     <link rel="stylesheet" href="/assets/css/font-awesome.min.css" type="text/css">
 
-    <style>
+    <style type="text/css" rel="stylesheet">
         .divLojas{
             padding: 0;
             margin-left: 0px;;
@@ -42,6 +42,11 @@
         .head{
             text-align: center;
         }
+        .listaCupons{
+            margin-top: 10px;
+        }
+
+
     </style>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -198,12 +203,12 @@
     </div>
 </header>
 
-<section>
+<section class="meusec">
     <div class="content-box listaCupons">
         <!-- Aqui temos uma lista de cupons verificar itens a usar -->
         <div class="box-holder">
             <div class="head">
-                @if(usuario!=null){
+                @if(usuario==null){
                     <h2>Confira os melhores cupons para Abril de 2015:</h2>
                 }else{
                     <h2>Olá @usuario.getNome, Confira os melhores cupons @loja para Abril de 2015:</h2>

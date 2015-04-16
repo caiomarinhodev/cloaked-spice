@@ -1,4 +1,4 @@
-
+/*
 import controllers.Sistema;
 import models.Loja;
 import models.Usuario;
@@ -16,6 +16,7 @@ import javax.persistence.EntityManager;
 /**
  * Created by X on 17/03/2015.
  */
+/*
 public abstract class AbstractTest {
 
     public EntityManager em;
@@ -54,3 +55,4 @@ public abstract class AbstractTest {
         Sistema.addLoja(l2);
     }
 }
+*/
